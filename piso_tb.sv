@@ -1,3 +1,4 @@
+`timescale 1ns / 1ns
 // Author: Dylan Boland
 //
 // Module: Testbench for the PISO module.

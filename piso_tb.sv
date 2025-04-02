@@ -112,20 +112,28 @@ module PISO_tb; // an empty port list
 				@(posedge clk);
 			end
 
-			// (3) Send some packets:
-			send_packet(PKT_SIZE'(16));
-			send_packet(PKT_SIZE'(128));
-			send_packet(PKT_SIZE'(7));
-			send_packet(PKT_SIZE'(25));
+			// (3) Send some packets. We should see the bytes
+			// below get transmitted least-significant bit first.
+			//
+			// First send 115 (decimal). This
+			// would correspond to the following byte:
+			//
+			// 			0111_0011
+			send_packet(PKT_SIZE'(115));
 
-			// (4) Wait some time before stopping the 
+			// Next, we'll send 31 (decimal). In byte format, this is:
+			//
+			//			0001_1111
+			send_packet(PKT_SIZE'(31));
+
+			// (4) Wait some time before stopping the
 			// simulation - say, 10 clock cycles:
 			repeat (10) begin
 				@(posedge clk);
 			end
 			$stop;
 		end
-	
+
 	// ==== Get the Waves ====
 	initial
 		begin
